@@ -1,0 +1,5 @@
+sqlalchemy
+flask
+flask_admin
+flask_sqlalchemy
+flask_security>=1.7.5

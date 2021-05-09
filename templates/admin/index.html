@@ -1,0 +1,68 @@
+{% if current_user.is_authenticated %}
+    {% extends 'admin/master.html' %}
+    {{ super() }}
+{% endif %}
+{% block body %}
+{% if not current_user.is_authenticated %}
+<title>Leave Management System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body,h1 {font-family: "Lora", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url("https://www.mountainphotography.com/images/xl/20140226-Bridge-of-Heaven-Night.jpg");
+    height: 100%;
+    background-position: center;
+    background-size: 100%;
+    background-repeat:no-repeat;
+}
+</style>
+<header>
+    <div class="bgimg w3-display-container w3-text-white">
+      <div class="w3-display-middle">
+        <h1 class="w3-xxxlarge w3-center">LEAVE MANAGEMENT SYSTEM</h1>
+          <p class="w3-large w3-center">A portal for all [Company's Name] employees to view and apply for a leave.</p>
+          <div class="w3-center">
+          <a class="w3-button w3-indigo w3-hover-blue" href="{{ url_for('security.login') }}">Click to Log In</a>
+              <a class="w3-button w3-indigo w3-hover-blue" href="{{ url_for('security.register') }}">Click to Sign Up</a>
+          </div>
+      </div>
+    </div>
+</header>
+    {% else %}
+    <body>
+    <title>Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+    body,h1 {font-family: "Lora", sans-serif}
+        .bgimg {
+    background-image: url('https://lh3.googleusercontent.com/7Cf1BawxIo89fod4vfoQkPdfScC9mvpaD-Tq86AoAHW0FNYkJiMz8JQB2vYaBGGZP8pt0uBFVqFTvnyZgAOdagYQEm6678aDiFvIHgxveAmw__Y5NgWoZa59J5mNHT-xAFTuMlX9J3QMfgVIoV_RSJm6ltlMO65xap-FctWIONmFWUqDZ26E99awL2EbEsuirxBwf57IH1eYz4A9eJYOFps2jbRgfVFFhID2kR75hr0YOk7M6MrO8uNRSBbkbO-HYEoOGaLjtdEFa491S6M9y_cJix8pLRsyS23nvhYqpCyJB2_odTMnCx6chOjpJCcPTCMaMA-yuunWrIPgTqwXazKp8G7fYK7T1nkWnaMu7mVMtdOmJYsmJVk2PZIgE67PC-qd7t6FxlWVtOjo49hv-Mg2h8O5A9h38Pxq6QGoAsT-UUatI-sLAQA_LDjwDf0ojhjyB42udrPhmNd-89Mgp9BgSV7IFtHHtPbPbSFWr6TSlD-FyfZycDjCwAkR2UqpcgrlK_PWDF-fKSsWgDBqWDn9keDU-ZMe4Pad6gBNggAJ8M0kcsGEOwbbDsCXt-t43lQSBgSWY-nsC2KSpHf8EqCTbp_638DtQqbeXZ-Owsjr53Pw5kTvn7pw1-cQpm9CwiCzx-RY51JVriKmqf5Ru6rsYg-5tK4_3FJbisv7IdGEFnaFJACDOipKZhMvZrbOP3ZnWZTki5B9Ix2iapfvro9DZsiSOlPJS0IJ52Nb-HlzSExV=w1000-h629-no');
+    min-height: 100%;
+    background-position: center;
+    background-size: 100% 100%;
+}
+    </style>
+    <!-- Header -->
+        <div class="bgimg w3-display w3-text-black">
+    <div class="w3-display-container w3-animate-opacity">
+    <header class="w3-container w3-center" style="padding:120px 16px" id="home">
+    <h1 class="w3-margin w3-jumbo w3-text-dark-grey">Leave Management System</h1>
+    <br>
+    <p class="w3-xlarge">Welcome {{current_user.first_name}} {{current_user.last_name}} to [Company Name]'s Leave Management System</p>
+        {% if current_user.has_role('superuser') %}
+        <p class="w3-large"> Your department: HR</p>
+        <p class="w3-large w3-text-grey"> Manage all of [Company Name]'s employees and managers</p>
+        {%  else %}
+        <p class="w3-large"> Your department : {{current_user.department}}</p>
+        <p class="w3-large w3-text-blue">Days Left : {{current_user.days_left}}</p>
+            </header>
+        </div>
+            </div>
+</body>
+    {% endif %}
+    {% endif %}
+{% endblock body %}
+
